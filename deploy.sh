@@ -106,6 +106,9 @@ if [ "$BRANCH" == "dev" ]; then
 fi;
 
 # File Parse Section:
+# The reason we parse the Test files is because we will plug these filenames into our deploy command for the test level). 
+  # The file names need their endings and filepaths removed to avoid errors after being plugged into our test level specification later on.
+  
 # Make temporary folder for our <className>Test.cls files that will be parsed
 sudo mkdir -p /Users/UserName/RepoName/force-app/main/default/unparsedTests
 export unparsedTestsDir=/Users/UserName/RepoName/force-app/main/default/unparsedTests
