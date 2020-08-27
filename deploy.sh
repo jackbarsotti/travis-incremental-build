@@ -112,7 +112,7 @@ export unparsedTestsDir=/Users/UserName/RepoName/force-app/main/default/unparsed
 # Search the local "classes" folder for <className>Test.cls files
 export classTests=$(find $classPath -name "*Test.cls")
 # Parse the <className>Test.cls filenames to remove each file's path and ".cls" ending, result: <className>Test
-# Exports as a string that will be called in the deploy command in script phase IF branch is LEX
+# Exports as a string that will be called in the deploy command in script phase IF branch is dev
 export parsedList=''
 for testfiles in $classTests; do
   sudo cp "$testfiles"* $unparsedTestsDir;
