@@ -56,9 +56,11 @@ export triggerPath=force-app/main/default/triggers
 git config --global diff.renameLimit 9999999
 
 # Git Diff Section:
-# Run a git diff for the incremental build depending on checked-out branch (if-statement per branch)
-# LEX branch:
-if [ "$BRANCH" == "LEX" ]; then
+# Duplicate this if-statement (lines 63-106) per branch that you need to run a deployment build from. This example has only one, dev.
+# Run a git diff for the incremental build depending on checked-out branch 
+
+# dev branch:
+if [ "$BRANCH" == "dev" ]; then
   echo 'Preparing for an incremental deployment to org...'
   for branch in $(git branch -r|grep -v HEAD); do
     #create tracking branch:
@@ -126,8 +128,9 @@ echo
 echo 'Running: git checkout $build_head'
 git checkout $build_head
 
-# Salesforce Authentication Section:
-if [ "$BRANCH" == "LEX" ]; then
+# Salesforce Authentication Section
+# If you duplicated the above git diff section (lines 63-106) for other branches in your repo, do the same below (for lines 133-144)
+if [ "$BRANCH" == "dev" ]; then
   # Automatically authenticate against current branch's corresponding SalesForce org:
   echo $SFDX_AUTH_URL_LEX>authtravisci.txt;
   # Only validate, not deploy, when a pull request is being created:
