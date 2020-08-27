@@ -132,10 +132,10 @@ echo 'Running: git checkout $build_head'
 git checkout $build_head
 
 # Salesforce Authentication Section
-# If you duplicated the above git diff section (lines 63-106) for other branches in your repo, do the same below (for lines 133-144)
+# If you duplicated the above git diff section (lines 63-106) for other branches in your repo, do the same below for each of those branches (duplicate lines 133-144)
 if [ "$BRANCH" == "dev" ]; then
   # Automatically authenticate against current branch's corresponding SalesForce org:
-  echo $SFDX_AUTH_URL_LEX>authtravisci.txt;
+  echo $SFDX_AUTH_URL_DEV>authtravisci.txt;
   # Only validate, not deploy, when a pull request is being created:
   if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ]; then
     # Create deployment variable for "sfdx:force:source:deploy RunSpecifiedTests -r <variable>":
