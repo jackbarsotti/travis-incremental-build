@@ -22,7 +22,7 @@ sfdx plugins --core
 if [ "$TRAVIS_BRANCH" == "dev" ]; then
   echo $SFDX_AUTH_URL_DEV>authtravisci.txt;
 elif [ "$TRAVIS_BRANCH" == "master" ]; then
-  echo $SFDX_AUTH_URL_DEV>authtravisci.txt;
+  echo $SFDX_AUTH_URL_PROD>authtravisci.txt;
 fi;
  
 # Set the target environment for force:source:retrieve command
