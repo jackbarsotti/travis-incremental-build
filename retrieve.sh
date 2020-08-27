@@ -19,8 +19,8 @@ sfdx --version
 sfdx plugins --core
  
 # Authenticate against correct org
-if [ "$TRAVIS_BRANCH" == "LEX" ]; then
-  echo $SFDX_AUTH_URL_LEX>authtravisci.txt;
+if [ "$TRAVIS_BRANCH" == "dev" ]; then
+  echo $SFDX_AUTH_URL_DEV>authtravisci.txt;
 elif [ "$TRAVIS_BRANCH" == "master" ]; then
   echo $SFDX_AUTH_URL_DEV>authtravisci.txt;
 fi;
