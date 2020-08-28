@@ -54,7 +54,9 @@ function bell() {
 }
 bell &
 # Run a source:retrieve to rebuild the contents of the force-app folder
-retrieved_files=$(sudo sfdx force:source:retrieve -u targetEnvironment -x manifest/package.xml) |
+ # If your repo has a /manifest/package.xml file, uncomment line 58 and comment out line 59
+ #retrieved_files=$(sudo sfdx force:source:retrieve -u targetEnvironment -x manifest/package.xml) |
+retrieved_files=$(sudo sfdx force:source:retrieve -u targetEnvironment -m ApexClass,ApexTrigger) |
 while read -r file; do
 echo
 done
