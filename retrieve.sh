@@ -68,7 +68,7 @@ ls /home/travis/build/UserName/RepoName/force-app/main/default
 echo
 echo "Now adding and committing these changes to your current branch..."
 
-# git add changes
+# git add the changes only in the force-app directory
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
 git add force-app/.
