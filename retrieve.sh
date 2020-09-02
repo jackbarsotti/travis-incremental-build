@@ -17,6 +17,8 @@ wget -qO- $URL | tar xJ -C sfdx --strip-components 1
 export PATH=./sfdx/$(pwd):$PATH
 sfdx --version
 sfdx plugins --core
+export UserName=YourUserName
+export RepoName=YourRepoName
  
 # Authenticate against correct org
 if [ "$TRAVIS_BRANCH" == "dev" ]; then
@@ -64,7 +66,7 @@ echo
 echo "Retrieval complete. Ready to update the remote repository."
 echo
 echo 'Here are the retrieved contents of your rebuilt force-app directory:'
-ls /home/travis/build/UserName/RepoName/force-app/main/default
+ls /home/travis/build/$UserName/$RepoName/force-app/main/default
 echo
 echo "Now adding and committing these changes to your current branch..."
 
@@ -86,5 +88,5 @@ echo "Build complete!"
 echo
 
 # git push 
-git remote add origin-master https://${GH_TOKEN}@github.com/UserName/RepoName.git > /dev/null 2>&1
+git remote add origin-master https://${GH_TOKEN}@github.com/$UserName/$RepoName.git > /dev/null 2>&1
 git push --quiet --set-upstream origin-master master
