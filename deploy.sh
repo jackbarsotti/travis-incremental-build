@@ -22,7 +22,9 @@ sfdx --version
 sfdx plugins --core
 
 # Create temporary diff folder (deploy directory) to paste files into later for incremental deployment
-sudo mkdir -p /Users/UserName/RepoName/force-app/main/default/diff
+export UserName=YourUserName
+export RepoName=YourRepoName
+sudo mkdir -p /Users/$UserName/$RepoName/force-app/main/default/diff
 
 # Pull our local branches so they exist locally
 # We are on a detached head, so we keep track of where Travis puts us
@@ -45,12 +47,13 @@ export BRANCH=$TRAVIS_BRANCH
 export branch=$TRAVIS_BRANCH
 echo "Travis branch: $TRAVIS_BRANCH" 
 echo
-export userPath=/Users/UserName/RepoName/force-app/main/default
+export userPath=/Users/$UserName/$RepoName/force-app/main/default
 export diffPath=/diff/force-app/main/default
 # For a full build, deploy directory should be "- export DEPLOYDIR=force-app/main/default":
-export DEPLOYDIR=/Users/UserName/RepoName/force-app/main/default/diff
+export DEPLOYDIR=/Users/$UserName/$RepoName/force-app/main/default/diff
 export classPath=force-app/main/default/classes
 export triggerPath=force-app/main/default/triggers
+export pagesPath=force-app/main/default/pages
 
 # Ensure that "inexact rename detection" error isn't skipped due to too many files
 git config --global diff.renameLimit 9999999
@@ -91,10 +94,10 @@ if [ "$BRANCH" == "dev" ]; then
       parsedfile=${file%.trigger-meta.xml}
       find $triggerPath -samefile "$parsedfile.trigger" -exec sudo cp --parents -t $DEPLOYDIR {} \;
     elif [[ $file == *.page ]]; then
-      find force-app/main/default/pages -samefile "$file-meta.xml" -exec sudo cp --parents -t $DEPLOYDIR {} \;
+      find $pagesPath -samefile "$file-meta.xml" -exec sudo cp --parents -t $DEPLOYDIR {} \;
     elif [[ $file == *.page-meta.xml ]]; then
       parsedfile=${file%.page-meta.xml}
-      find force-app/main/default/pages -samefile "$parsedfile.page" -exec sudo cp --parents -t $DEPLOYDIR {} \;
+      find $pagesPath -samefile "$parsedfile.page" -exec sudo cp --parents -t $DEPLOYDIR {} \;
     fi
   done 
   echo 'Complete.'
@@ -110,8 +113,8 @@ fi;
   # The file names need their endings and filepaths removed to avoid errors after being plugged into our test level specification later on.
   
 # Make temporary folder for our <className>Test.cls files that will be parsed
-sudo mkdir -p /Users/UserName/RepoName/force-app/main/default/unparsedTests
-export unparsedTestsDir=/Users/UserName/RepoName/force-app/main/default/unparsedTests
+sudo mkdir -p /Users/$UserName/$RepoName/force-app/main/default/unparsedTests
+export unparsedTestsDir=/Users/$UserName/$RepoName/force-app/main/default/unparsedTests
 # Search the local "classes" folder for <className>Test.cls files
 export classTests=$(find $classPath -name "*Test.cls")
 # Parse the <className>Test.cls filenames to remove each file's path and ".cls" ending, result: <className>Test
